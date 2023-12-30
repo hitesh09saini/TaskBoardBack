@@ -5,12 +5,9 @@ const ApiError = require('../utils/ApiError')
 const AsyncHandler = require('../utils/asynchandler')
 
 const cookieOptions = {
-    maxAge: 7 * 24 * 60 * 1000, // 7 days in milliseconds
+    maxAge: 7 * 24 * 60 * 1000, 
     httpOnly: true,
-    // secure: false, // Since you are using http://localhost, not https
-    // domain: 'localhost', // Set to your domain
-    // path: '/api/v1/user', // Set to the path relevant to your application
-    // sameSite: 'None',
+    secure: true, 
     sameSite: 'strict' 
 };
 
