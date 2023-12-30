@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 app.use(cors({
-	origin: process.env.CLIENT,
+	origin: 'https://task-boardbyhitesh.netlify.app/',
 	credentials: true
 }));
 
