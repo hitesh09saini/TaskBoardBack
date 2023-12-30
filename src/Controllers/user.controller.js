@@ -5,11 +5,13 @@ const ApiError = require('../utils/ApiError')
 const AsyncHandler = require('../utils/asynchandler')
 
 const cookieOptions = {
-    maxAge: 7 * 24 * 60 * 1000, 
+    maxAge: 7 * 24 * 60 * 1000,
     httpOnly: true,
-    secure: true, 
-    sameSite: 'strict' 
+    secure: true,
+    sameSite: 'strict',
+    domain: 'netlify.app' // Adjust based on your domain structure
 };
+
 
 
 const register = AsyncHandler(async (req, res, next) => {
