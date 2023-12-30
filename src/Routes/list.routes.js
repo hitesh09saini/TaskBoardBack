@@ -1,6 +1,15 @@
 const { Router } = require("express");
-const isLoggedIn = require('../middlewares/auth.middleware')
-const {getList, createList, deleteList, createTask, editTask, deleteTask, editTaskStatus} = require('../Controllers/list.controller')
+const isLoggedIn = require('../middlewares/auth.middleware');
+const {
+  getList,
+  createList,
+  deleteList,
+  createTask,
+  editTask,
+  deleteTask,
+  editTaskStatus,
+} = require('../Controllers/list.controller');
+
 const router = Router();
 
 router.route('/')
@@ -21,6 +30,5 @@ router.route('/task/:id/:taskId')
 
 router.route('/status/:id/:taskId')
 .put(isLoggedIn, editTaskStatus)
-
 
 module.exports = router;

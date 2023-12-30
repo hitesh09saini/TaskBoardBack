@@ -17,13 +17,13 @@ const register = AsyncHandler(async (req, res, next) => {
 
 
     if (!email || !password) {
-        throw ApiError('All Fields is Required!', 400)
+        throw next(new ApiError('All Fields is Required!', 400))
     }
 
     const user = await User.findOne({ email });
 
     if (user) {
-        throw new ApiError('User Already Exist!', 400);
+        throw next(new ApiError('User Already Exist!', 400));
     }
 
     const emptyList = await List.create({ lists: [] });

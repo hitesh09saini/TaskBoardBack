@@ -1,11 +1,12 @@
+const DbConnect = require('./src/config/DbConnection.js');
+const app = require('./app.js');
+const dotenv = require('dotenv');
 
-const DbConnect = require('./src/config/DbConnection.js')
-const app =  require('./app.js')
+dotenv.config();
 
+const PORT = process.env.PORT ;
 
-const PORT = 8000||process.env.PORT
-
-app.listen(PORT, ()=>{
-    DbConnect();
-    console.log(`server is running at http://localhost:${PORT}`);
-})
+app.listen(PORT, () => {
+  DbConnect();
+  console.log(`Server is running at http://localhost:${PORT}`);
+});

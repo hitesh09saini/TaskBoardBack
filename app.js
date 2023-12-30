@@ -1,41 +1,40 @@
-require('dotenv').config();
-const  express = require('express')
-const cors = require('cors')
+const express = require('express');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', process.env.CLIENT);
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
+// CORS middleware
+app.use(cors({
+  origin: process.env.CLIENT, // You can use a specific origin or '*' for any origin
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
 // ping-pong
-
-app.get('/', (req, res)=>{
-   res.json({
-     message: 'server is running '
-   })
-})
+app.get('/', (req, res) => {
+  res.json({
+    message: 'server is running',
+  });
+});
 
 // routes
-
-
 // user routes
-const UserRoutes = require('./src/Routes/user.routes')
+const UserRoutes = require('./src/Routes/user.routes');
 app.use('/api/v1/user', UserRoutes);
 
+// list create
+const ListRoutes = require('./src/Routes/list.routes');
+app.use('/api/v1/list', ListRoutes);
 
-// list create 
-const ListRoutes = require('./src/Routes/list.routes')
-app.use('/api/v1/list', ListRoutes)
 
-module.exports =  app;
+
+module.exports = app;

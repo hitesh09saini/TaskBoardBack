@@ -1,10 +1,8 @@
 
 require('dotenv').config()
 const List = require('../models/list.model')
-const User = require('../models/user.model')
 const ApiError = require('../utils/ApiError')
 const AsyncHandler = require('../utils/asynchandler')
-const jwt = require('jsonwebtoken');
 
 const getList = AsyncHandler(async (req, res, next) => {
     const id = req.user.list;
@@ -45,7 +43,7 @@ const deleteList = AsyncHandler(async (req, res, next) => {
     list.lists = list.lists.filter(list => list._id != listIdToDelete);
 
     await list.save();
-    res.status(201).json({
+    res.status(200).json({
         success: true,
         message: 'List is deleted succesfully',
         lists: list.lists,
