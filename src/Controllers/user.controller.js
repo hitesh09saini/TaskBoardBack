@@ -9,7 +9,7 @@ const cookieOptions = {
     httpOnly: true,
     secure: true,
     sameSite: 'strict',
-    domain: 'vercel.app', // Uncomment and replace with your domain if necessary
+    domain: 'task-board-front.vercel.app', // Remove protocol and path
 };
 
 
