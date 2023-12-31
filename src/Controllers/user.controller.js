@@ -5,11 +5,11 @@ const ApiError = require('../utils/ApiError')
 const AsyncHandler = require('../utils/asynchandler')
 
 const cookieOptions = {
-    maxAge: 7 * 24 * 60 * 1000,
-    // httpOnly: true,
-    // secure: true,
-    // sameSite: 'strict',
-    // domain: 'netlify.app' // Adjust based on your domain structure
+    maxAge: 3 * 24 * 60 * 1000, // 3 days
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    domain: 'vercel.app', // Uncomment and replace with your domain if necessary
 };
 
 

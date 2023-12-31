@@ -7,9 +7,9 @@ dotenv.config();
 
 const app = express();
 
-// CORS middleware
+// CORS Configuration
 app.use(cors({
-  origin: process.env.CLIENT, // You can use a specific origin or '*' for any origin
+  origin: process.env.CLIENT ,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
