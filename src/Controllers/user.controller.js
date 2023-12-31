@@ -8,9 +8,7 @@ const cookieOptions = {
     maxAge: 3 * 24 * 60 * 1000, // 3 days
     httpOnly: true,
     secure: true,
-    sameSite: 'strict',
-    // domain: 'task-board-front.vercel.app', // Remove protocol and path
-
+    sameSite: 'None',
 };
 
 
