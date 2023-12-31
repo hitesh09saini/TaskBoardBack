@@ -9,7 +9,7 @@ const cookieOptions = {
     httpOnly: true,
     secure: true,
     sameSite: 'strict',
-    domain: 'netlify.app' // Adjust based on your domain structure
+    // domain: 'netlify.app' // Adjust based on your domain structure
 };
 
 
