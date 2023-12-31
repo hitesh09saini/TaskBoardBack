@@ -40,7 +40,7 @@ const register = AsyncHandler(async (req, res, next) => {
     await newUser.save();
 
     const token = await newUser.generateToken();
-    console.log(token);
+  
     res.cookie('token', token, cookieOptions)
 
     res.status(200).json({
