@@ -7,7 +7,7 @@ const isLoggedIn = AsyncHandler(async (req, res, next) => {
   const { token } = req.cookies;
 
   if (!token) {
-    return next(new ApiError('Unauthorized, please login to continue', 401));
+    return next(new ApiError('Unauthorized please login to continue', 401));
   }
 
   try {
