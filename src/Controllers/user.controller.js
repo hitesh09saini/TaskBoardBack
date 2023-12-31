@@ -8,7 +8,7 @@ const cookieOptions = {
     maxAge: 7 * 24 * 60 * 1000,
     httpOnly: true,
     secure: true,
-    sameSite: 'strict',
+    // sameSite: 'strict',
     // domain: 'netlify.app' // Adjust based on your domain structure
 };
 
