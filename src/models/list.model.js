@@ -1,9 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const TaskSchema = new Schema({
-  taskName: {
-    type: String,
-  },
+  taskName: String,
   status: {
     type: Boolean,
     default: false
@@ -12,6 +10,7 @@ const TaskSchema = new Schema({
 
 const SublistSchema = new Schema({
   tasks: [TaskSchema],
+  listName: String,
 });
 
 const ListSchema = new Schema({

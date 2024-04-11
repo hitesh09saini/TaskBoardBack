@@ -3,6 +3,9 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+// Regular expression for a strong password (minimum 8 characters, at least one uppercase letter, one lowercase letter, one number, and one special character)
+const strongPasswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+
 const UserSchema = new Schema({
     email: {
         type: String,
@@ -14,13 +17,20 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: [true, 'Password is required'],
+        validate: {
+            validator: function(v) {
+                return strongPasswordRegex.test(v);
+            },
+            message: props => `${props.value} is not a valid password. Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.`,
+        },
     },
 
     list: {
         type: Schema.Types.ObjectId,
-        ref: 'List', // Reference to the List model
+        ref: 'List', 
     }
 });
+
 
 UserSchema.pre('save', async function (next) {
     try {

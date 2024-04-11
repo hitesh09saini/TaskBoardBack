@@ -5,7 +5,7 @@ const ApiError = require('../utils/ApiError')
 const AsyncHandler = require('../utils/asynchandler')
 
 const cookieOptions = {
-    maxAge: 3 * 24 * 60 * 1000, // 3 days
+    maxAge: 4 * 24 * 60 * 60 * 1000,
     httpOnly: true,
     secure: true,
     sameSite: 'None',
@@ -21,32 +21,31 @@ const register = AsyncHandler(async (req, res, next) => {
         throw next(new ApiError('All Fields is Required!', 400))
     }
 
-    const user = await User.findOne({ email });
+    const checkUser = await User.findOne({ email });
 
-    if (user) {
+    if (checkUser) {
         throw next(new ApiError('User Already Exist!', 400));
     }
 
-    const emptyList = await List.create({ lists: [] });
+    const newList = new List();
+    await newList.save();
 
-    const newUser = await User.create({
+    const user = await User.create({
         email,
         password,
-        list: emptyList._id,
+        list: newList._id,
     });
 
 
-    await newUser.save();
+    await user.save();
 
     const token = await newUser.generateToken();
-  
+
     res.cookie('token', token, cookieOptions)
 
     res.status(200).json({
         success: true,
         massage: 'User Successfully Created !',
-        newUser,
-        token: token
     })
 
 })
@@ -76,7 +75,6 @@ const login = AsyncHandler(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: "User logged in successfully",
-        user,
     });
 });
 
@@ -92,8 +90,6 @@ const logout = AsyncHandler(async (req, res, next) => {
         message: 'User logged out successfully'
     })
 })
-
-
 
 module.exports = {
     register,

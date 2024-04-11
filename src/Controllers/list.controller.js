@@ -5,8 +5,8 @@ const ApiError = require('../utils/ApiError')
 const AsyncHandler = require('../utils/asynchandler')
 
 const getList = AsyncHandler(async (req, res, next) => {
-    const id = req.user.list;
-    const Lists = await List.findById(id);
+
+    const Lists = await List.findById(req.user.list);
 
     if (!Lists) {
         return next(new ApiError(400, 'User List not exist'))
@@ -15,17 +15,24 @@ const getList = AsyncHandler(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: 'get all lists succesfully',
-        list: Lists.lists
+        list: Lists.lists,
     })
 })
 
 const createList = AsyncHandler(async (req, res, next) => {
+
     if (!req.body) {
         return next(new ApiError(400, 'All field is required !'))
     }
+
     const list = await List.findById(req.user.list);
+    
+    if (!list) {
+        return next(new ApiError(400, 'CREATE NEW ACCOUNT!'))
+    }
 
     list.lists.push(req.body);
+
     await list.save();
 
     res.status(201).json({
@@ -66,7 +73,6 @@ const createTask = AsyncHandler(async (req, res, next) => {
         return next(new ApiError(404, 'List not found'));
     }
 
-    // Push a new task to the tasks array
     lists.tasks.push(taskData);
 
     await list.save();
@@ -77,7 +83,6 @@ const createTask = AsyncHandler(async (req, res, next) => {
         list: lists.tasks,
     });
 });
-
 
 const editTask = AsyncHandler(async (req, res, next) => {
     const taskId = req.params.taskId;
