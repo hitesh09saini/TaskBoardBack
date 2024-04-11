@@ -39,7 +39,7 @@ const register = AsyncHandler(async (req, res, next) => {
 
     await user.save();
 
-    const token = await newUser.generateToken();
+    const token = await user.generateToken();
 
     res.cookie('token', token, cookieOptions)
 
