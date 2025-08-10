@@ -4,16 +4,15 @@ const AsyncHandler = require('../utils/asynchandler');
 const jwt = require('jsonwebtoken');
 
 const isLoggedIn = AsyncHandler(async (req, res, next) => {
-  const { token } = req.cookies;
+  const token = req.body.token || req.query.token || req.headers["token"];
 
   if (!token) {
-    return next(new ApiError('Unauthorized please login to continue', 401));
+    return res.status(401).send("A token is required for authentication");
   }
-
   try {
     // Decoding the token using jwt package verify method
     const decoded = await jwt.verify(token, process.env.JWT_SECRET_KEY);
-    if(!decoded){
+    if (!decoded) {
       return next(new ApiError('Unauthorized, please login to continue', 401));
     }
     // If all good, store the id in req object
